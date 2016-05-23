@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+#if !UNITY_5
 using System.Dynamic;
+#endif
 using NUnit.Framework;
 using SmartFormat.Core.Settings;
 using SmartFormat.Extensions;
@@ -35,6 +37,7 @@ namespace SmartFormat.Tests.Extensions
 			};
 		}
 
+#if !UNITY_5
 		public dynamic GetDynamicArgs()
 		{
 			dynamic d = new ExpandoObject();
@@ -47,6 +50,7 @@ namespace SmartFormat.Tests.Extensions
 				d,
 			};
 		}
+#endif
 
 		[Test]
 		public void Test_Dictionary()
@@ -66,6 +70,7 @@ namespace SmartFormat.Tests.Extensions
 			formatter.Test(formats, args, expected);
 		}
 
+#if !UNITY_5
 		[Test]
 		public void Test_Dynamic()
 		{
@@ -102,5 +107,6 @@ namespace SmartFormat.Tests.Extensions
 			var args = (object[])GetDynamicArgs();
 			formatter.Test(formats, args, expected);
 		}
+#endif
 	}
 }

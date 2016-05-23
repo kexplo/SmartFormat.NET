@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+#if UNITY_5
+using UnityEngine;
+#else
 using System.Drawing;
+#endif
 using System.Globalization;
 using NUnit.Framework;
 using SmartFormat.Core.Settings;
@@ -158,9 +162,18 @@ namespace SmartFormat.Tests.OldTests
 		[Test]
 		public void NestingCollection()
 		{
+#if UNITY_5
+			Vector2[] sizes =
+			{
+				new Vector2(1.0f, 1.0f), new Vector2(4.0f, 3.0f), new Vector2(16.0f, 9.0f)
+			};
+
+			var formatString = "{0:({x} x {y})| and }";
+#else
 			Size[] sizes = {new Size(1, 1), new Size(4, 3), new Size(16, 9)};
 
 			var formatString = "{0:({Width} x {Height})| and }";
+#endif
 			var expectedOutput = "(1 x 1) and (4 x 3) and (16 x 9)";
 
 			string actualOutput = Smart.Format(formatString, sizes);
@@ -173,9 +186,18 @@ namespace SmartFormat.Tests.OldTests
 			var formatter = Smart.CreateDefaultSmartFormat();
 			formatter.Settings.CaseSensitivity = CaseSensitivityType.CaseInsensitive;
 
+#if UNITY_5
+			Vector2[] sizes =
+			{
+				new Vector2(1.0f, 1.0f), new Vector2(4.0f, 3.0f), new Vector2(16.0f, 9.0f)
+			};
+
+			var formatString = "{0:({X} x {Y})| and }";
+#else
 			Size[] sizes = { new Size(1, 1), new Size(4, 3), new Size(16, 9) };
 
 			var formatString = "{0:({widTh} x {hEIght})| and }";
+#endif
 			var expectedOutput = "(1 x 1) and (4 x 3) and (16 x 9)";
 
 			string actualOutput = formatter.Format(formatString, sizes);

@@ -1,5 +1,7 @@
 ﻿using System;
+#if !UNITY_5
 using System.Drawing.Text;
+#endif
 using NUnit.Framework;
 
 namespace SmartFormat.Tests.Core

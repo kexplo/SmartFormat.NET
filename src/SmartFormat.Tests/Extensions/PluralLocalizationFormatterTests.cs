@@ -103,6 +103,7 @@ namespace SmartFormat.Tests.Extensions
 				});
 		}
 
+#if !UNITY_5
 		[Test]
 		public void Test_Polish()
 		{
@@ -144,6 +145,7 @@ namespace SmartFormat.Tests.Extensions
 					{  105, "105 miesięcy temu"},
 				});
 		}
+#endif
 
 		[Test]
 		[TestCase("{0} {0:plural(en):zero|one|many} {0:plural(pl):miesiąc|miesiące|miesięcy}", 0, "0 zero miesięcy")]

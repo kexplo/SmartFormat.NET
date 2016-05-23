@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+#if !UNITY_5
 using System.Threading.Tasks;
+#endif
 using NUnit.Framework;
 using SmartFormat.Tests.TestUtils;
 
@@ -85,6 +87,7 @@ namespace SmartFormat.Tests.Extensions
 			Smart.Default.Test(formats, args, expected);
 		}
 
+#if !UNITY_5
 		[Test]
 		/* added due to problems with [ThreadStatic] see: https://github.com/scottrippey/SmartFormat.NET/pull/23,
 		 * if this test doesn't fail with usage of [ThreadStatic], run it again, because this test depends on the underlying ThreadPool */
@@ -111,6 +114,7 @@ namespace SmartFormat.Tests.Extensions
 				Assert.AreEqual(" where test = @test", t.Result);
 			}
 		}
+#endif
 
 
 		[Test]

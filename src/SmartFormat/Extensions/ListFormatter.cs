@@ -92,6 +92,9 @@ namespace SmartFormat.Extensions
 			return false;
 		}
 
+#if UNITY_5
+		private static int CollectionIndex = -1;
+#else
 		private static string key = "664c3d47-8d00-4825-b4fb-f3dd7c8a9bdf";
 		private static int CollectionIndex
 		{
@@ -102,6 +105,7 @@ namespace SmartFormat.Extensions
 			}
 			set { CallContext.LogicalSetData(key, value); }
 		}
+#endif
 
 		public bool TryEvaluateFormat(IFormattingInfo formattingInfo)
 		{

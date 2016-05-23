@@ -349,7 +349,11 @@ namespace SmartFormat.Utilities
 			}
 		}
 
+#if !UNITY_5
 		private static readonly Regex parser = new Regex(@"\b(w|week|weeks|d|day|days|h|hour|hours|m|minute|minutes|s|second|seconds|ms|millisecond|milliseconds|auto|short|fill|full|abbr|noabbr|less|noless)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+#else
+		private static readonly Regex parser = new Regex(@"\b(w|week|weeks|d|day|days|h|hour|hours|m|minute|minutes|s|second|seconds|ms|millisecond|milliseconds|auto|short|fill|full|abbr|noabbr|less|noless)\b", RegexOptions.IgnoreCase);
+#endif
 		public static TimeSpanFormatOptions Parse(string formatOptionsString)
 		{
 			formatOptionsString = formatOptionsString.ToLower();

@@ -13,7 +13,11 @@ namespace SmartFormat.Extensions
 		private static readonly Regex complexConditionPattern
 			= new Regex(@"^  (?:   ([&/]?)   ([<>=!]=?)   ([0-9.-]+)   )+   \?",
 			//   Description:	  and/or	comparator	 value
+#if !UNITY_5
 			RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+#else
+			RegexOptions.IgnorePatternWhitespace);
+#endif
 
 		public bool TryEvaluateFormat(IFormattingInfo formattingInfo)
 		{
@@ -188,7 +192,12 @@ namespace SmartFormat.Extensions
 		{
 			conditionResult = false;
 			// Let's evaluate the conditions into a boolean value:
+#if UNITY_5
+			string ss = parameter.baseString.Substring(parameter.startIndex, parameter.endIndex - parameter.startIndex);
+			Match m = complexConditionPattern.Match(ss);
+#else
 			Match m = complexConditionPattern.Match(parameter.baseString, parameter.startIndex, parameter.endIndex - parameter.startIndex);
+#endif
 			if (!m.Success) {
 				// Could not parse the "complex condition"
 				outputItem = parameter;
@@ -239,7 +248,11 @@ namespace SmartFormat.Extensions
 
 			// Successful
 			// Output the substring that doesn't contain the "complex condition"
+#if UNITY_5
+			var newStartIndex = (parameter.startIndex + m.Index) + m.Length - parameter.startIndex;
+#else
 			var newStartIndex = m.Index + m.Length - parameter.startIndex;
+#endif
 			outputItem = parameter.Substring(newStartIndex);
 			return true;
 		}
